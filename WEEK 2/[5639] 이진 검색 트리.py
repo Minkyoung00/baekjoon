@@ -1,12 +1,11 @@
 import sys
-import time
 
-def make_graph(arr, i, graph): 
+def make_graph(arr, i,graph): # i : 탐색할 노드 index
     if i >= len(arr):
         return
     
     u = arr[i]
-    left, right = '.', '.'
+    left, right = '.','.'
 
     if i+1 < len(arr) and u > arr[i+1]:
         left = arr[i+1]
@@ -23,20 +22,19 @@ def make_graph(arr, i, graph):
                 if right == graph[n][2]:
                     right = '.'  
 
-    graph.append([u, left, right])
-    make_graph(arr, i+1, graph)
+    graph.append([u,left,right])
+    make_graph(arr, i+1,graph)
 
 def postorder(arr, v):  
     if v == '.':
         return
-    for n in arr:
+    
+    for n in graph:
         if v == n[0]:  
             postorder(arr, n[1])   
             postorder(arr, n[2]) 
             print(v)  
             return
-
-start = time.time() # 시작
 
 sys.setrecursionlimit(10**8)
 lines = sys.stdin.readlines()
@@ -45,5 +43,3 @@ pre = [int(line.strip()) for line in lines]
 graph = []
 make_graph(pre, 0, graph)
 postorder(graph, pre[0])
-
-print(f"{time.time()-start:.4f} sec")
