@@ -44,8 +44,7 @@ class BinarySearchTree:
         print(node.val)
 
 tree = BinarySearchTree()
-
-for s in range(len(pre)):
-    tree.insert(pre[s])
+for s in pre:
+    tree.insert(s)
 
 tree.postorder_traversal(tree.root)
