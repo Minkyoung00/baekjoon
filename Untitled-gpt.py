@@ -1,49 +1,41 @@
 import sys
-import time
+input = sys.stdin.readline
 
-def make_graph(arr, i, graph): 
-    if i >= len(arr):
-        return
+def oper(a, b, operator):
+    if operator == "+":
+        return a + b
+    elif operator == "-":
+        return a - b
+    elif operator == "*":
+        return a * b
+    else:  # operator == "//"
+        return int(a / b)
+
+def ordering(operators):
+    min_result =  1e9
+    max_result =  -1e9
     
-    u = arr[i]
-    left, right = '.', '.'
-
-    if i+1 < len(arr) and u > arr[i+1]:
-        left = arr[i+1]
+    stack = [(A[0], 0, operators)]
     
-    j = i+1
-    while j < len(arr) and u > arr[j]:
-        j += 1
-       
-    if j < len(arr):
-        if i == 0 or arr[i-1] > arr[j] or arr[j] != max(arr[:i+1]):
-            right = arr[j]
+    while stack:
+        value, index, remaining = stack.pop()
+        
+        if index == len(A) - 1:
+            max_result = max(value, max_result)
+            min_result = min(value, min_result)
+            continue
+        
+        for i in range(len(remaining)):
+            next_ops = remaining[:i] + remaining[i+1:]
+            next_value = oper(value, A[index + 1], remaining[i])
+            stack.append((next_value, index + 1, next_ops))
+    
+    print(max_result)
+    print(min_result)
 
-            for n in range(len(graph)):
-                if right == graph[n][2]:
-                    right = '.'  
+N = int(input())    # 수의 개수
+A = list(map(int, input().split()))  # 수 배열
+hap, cha, gop, na  = map(int, input().split())
+operators = ['+'] * hap + ['-'] * cha + ["*"] * gop + ["//"] * na
 
-    graph.append([u, left, right])
-    make_graph(arr, i+1, graph)
-
-def postorder(arr, v):  
-    if v == '.':
-        return
-    for n in arr:
-        if v == n[0]:  
-            postorder(arr, n[1])   
-            postorder(arr, n[2]) 
-            print(v)  
-            return
-
-start = time.time() # 시작
-
-sys.setrecursionlimit(10**8)
-lines = sys.stdin.readlines()
-pre = [int(line.strip()) for line in lines]
-
-graph = []
-make_graph(pre, 0, graph)
-postorder(graph, pre[0])
-
-print(f"{time.time()-start:.4f} sec")
+ordering(operators)
