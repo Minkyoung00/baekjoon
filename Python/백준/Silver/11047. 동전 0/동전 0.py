@@ -8,11 +8,9 @@ for i in range(N):
     coins.append(int(input()))
 
 result = 0
-coins.reverse()
 
-for coin in coins:
-    if coin <= M:
-        max_in = M//coin
-        result += max_in
-        M = M - max_in*coin
+for coin in coins[::-1]:
+    result += M//coin
+    M -= M//coin*coin
+
 print(result)
