@@ -9,12 +9,12 @@ items.sort()
 memo = [0]*(K+1)
 
 for W,V in items:
-    new = memo[:]
+    new = memo[:]    
     for i in range(K+1):
-        if i + W > K:
+        if i + W > K: #
             break      
-        if i == 0 or memo[i] != 0:
-            new[i+W] = max( new[i+W], memo[i] + V)   
+        if memo[i] != 0 or i == 0:
+            new[i+W] = max( memo[i+W], memo[i] + V)   
     memo = new
 
 print(max(memo))
