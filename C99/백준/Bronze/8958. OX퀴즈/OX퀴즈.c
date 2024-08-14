@@ -8,15 +8,12 @@ int main(){
         char str[80];
         scanf("%s", str);
 
-        char *cur = &str[0];
+        char *cur = str;
         int score = 0, pre = 0;
 
         while (*cur){
             if (*cur == 'O'){
-                if (pre){
-                    score += pre;
-                }
-                score++;
+                score += pre + 1;
                 pre++;
             }
             else pre = 0;
