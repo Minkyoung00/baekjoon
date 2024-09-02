@@ -4,10 +4,15 @@ def solution(picks, minerals):
      
     list_load = []
 
-    while (len(minerals) >= 5):
+    while (len(minerals)):
         load = dia = 0
-
-        for i in range(5):
+        
+        if len(minerals) >= 5:
+            set_size = 5
+        else:
+            set_size = len(minerals)
+        
+        for i in range(set_size):
             if minerals[0] == "diamond":
                 load += 25
                 dia += 1
@@ -18,24 +23,7 @@ def solution(picks, minerals):
             
             del minerals[0]
         
-        list_load.append((load,dia,5))
-
-    load = dia = 0
-    len_remain = len(minerals)
-
-    for i in range(len_remain):
-        
-        if minerals[0] == "diamond":
-            load += 25
-            dia += 1
-        elif minerals[0] == "iron":
-            load += 5
-        else:
-            load += 1
-        
-        del minerals[0]
-        
-    list_load.append((load,dia,len_remain))
+        list_load.append((load,dia,set_size))
 
     list_load.sort(reverse=True)
 
@@ -50,5 +38,4 @@ def solution(picks, minerals):
         else:
             tiredness  += list_load[i][0]
 
-    
     return tiredness
