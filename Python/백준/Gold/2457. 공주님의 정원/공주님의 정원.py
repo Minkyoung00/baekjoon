@@ -20,11 +20,8 @@ while(i < N):
 
     if s_m < temp_m or (s_m == temp_m and s_d <= temp_d):
         if e_m > end_m or (e_m == end_m and e_d > end_d):
-            # cnt += 1
             end_m, end_d = e_m, e_d
-            # if end_m == 12:
-            #     cnt += 1
-            #     break
+            
             if end_m == 12 or i == N-1:
                 cnt += 1
                 break
@@ -35,7 +32,8 @@ while(i < N):
     
     i += 1
 
-if end_m != 12:
-    cnt = 0
+if end_m == 12:
+    print(cnt)
+else:
+    print(0)
 
-print(cnt)
